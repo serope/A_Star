@@ -1,6 +1,11 @@
-/***********************************************************************
- * A* Search
- **********************************************************************/
+/*
+ * a_star
+ * 
+ * An implementation of the A* search algorithm to run on a Nvidia GPU.
+ * This is just for practice/fun. It doesn't utilize parallelism at all.
+ * 
+ * https://en.wikipedia.org/wiki/A*_search_algorithm
+ */
 #include <stdio.h>
 #include "graph.h"
 #include "node.h"
@@ -91,7 +96,7 @@ int main() {
 	//Create graph
 	graph_t* gr;
 	cudaMalloc((void**) &gr, sizeof(graph_t));
-	graph_new<<<1,1>>>(gr);
+	graph_init<<<1,1>>>(gr);
 	graph_add<<<1,1>>>(gr, a);
 	graph_add<<<1,1>>>(gr, b);
 	graph_add<<<1,1>>>(gr, c);
