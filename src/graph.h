@@ -1,7 +1,5 @@
 /*
  * graph.h
- * 
- * The graph_t type is declared here.
  */
 #pragma once
 #include "node.h"

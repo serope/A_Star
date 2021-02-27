@@ -1,8 +1,8 @@
 # a_star
-This is a demonstration of [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm) using Nvidia CUDA.
+This is a naive implementation of [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm) in Nvidia CUDA.
 
 ## Example
-When finding the shortest distance from A to Z in the graph below, the results are as follows (note that some functions can be passed a `verbose` parameter for more detailed outputs).
+Finding the shortest distance from A to Z in the following graph:
 
 ![](https://serope.com/ai/a-star-sm.png)
 
