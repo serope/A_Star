@@ -12,24 +12,7 @@ __global__ void a_star(graph_t* g, node_t* origin, node_t* goal, bool verbose) {
 	
 	// repeat until finished
 	start:
-	
-	//Find index of current node
-	int index = 0;
-	while (g->nodes[index] != current_node)
-		index += 1;
-		
-	//Transfer current node from unvisited set to visited set
-	if (current_node==origin) {
-		g->nodes[index]			= NULL;
-		g->visited_nodes[index]	= current_node;
-		g->distances[index]		= 0;
-		g->parents[index]		= NULL;
-	}
-	
-	else {
-		g->nodes[index]			= NULL;
-		g->visited_nodes[index]	= current_node;
-	}
+	__move_to_unvisited(g, current_node, origin);
 	
 	//For each neighbor...
 	for (int n=0; n < current_node->neighbor_count; n++) {
@@ -91,4 +74,27 @@ __global__ void a_star(graph_t* g, node_t* origin, node_t* goal, bool verbose) {
 	}
 	current_node = g->nodes[index];
 	goto start;
+}
+
+__device__ static void __move_to_unvisited(graph_t* graph, node_t* current_node, node_t* origin) {
+	int index;
+	__find_index(g, current_node, &index);
+		
+	if (current_node == origin) {
+		g->nodes[index]         = NULL;
+		g->visited_nodes[index] = current_node;
+		g->distances[index]     = 0;
+		g->parents[index]       = NULL;
+	}
+	else {
+		g->nodes[index]			= NULL;
+		g->visited_nodes[index]	= current_node;
+	}
+}
+
+__device__ static void __find_index(graph_t* g, node_t* n, int* i_ptr) {
+	int i = 0;
+	while (g->nodes[i] != n)
+		i += 1;
+	*i_ptr = i;
 }
